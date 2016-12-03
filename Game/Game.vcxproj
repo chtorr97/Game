@@ -33,6 +33,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="utility.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -48,6 +49,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="utility.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3eeb8f10-45e4-4014-8ea6-ca9c061ecbd4}</ProjectGuid>

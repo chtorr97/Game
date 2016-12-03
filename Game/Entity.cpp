@@ -17,6 +17,6 @@ Entity::~Entity()
 bool Entity::intersects(Entity* e)
 {
 	float di = ut::dist(e->getPos(), getPos()), //distanza
-		si = (ut::mag(e->getSize()) / 5.f + ut::mag(getSize()) / 5.f); //lunghezza della somma delle size
+		si = (ut::mag(e->getSize()) / 2.f + ut::mag(getSize() / 2.f)) / 1.8; //lunghezza della somma delle size
 	return di < si;
 }

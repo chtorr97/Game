@@ -29,7 +29,6 @@ void Projectile::init(Vector2f _position, float _dir, float _velocity, int _life
 	life.init(_life);
 	//setPos(_position + ut::toVector(10, _dir + 30));
 	setPos(_position);
-	//use tovector
 	velocity = _velocity;
 	dir = _dir;
 }
@@ -38,7 +37,7 @@ void Projectile::update(Time& elapsed)
 {
 	Displayable::update();
 
-	setPos(getPos() + ut::toVector(velocity, dir) * (elapsed.asMilliseconds() * 1.f));
+	move(ut::toVector(velocity, dir) * (elapsed.asMilliseconds() * 1.f));
 	setAngle(dir + 90);
 
 	life.add(-elapsed.asMilliseconds());

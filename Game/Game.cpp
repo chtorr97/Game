@@ -29,9 +29,6 @@ void Game::run(void)
 	texManager.add("grass", "grass.png"); //32x32
 	texManager.add("bullet", "bullet.png"); //15x15
 	texManager.add("zombie", "zombies.png"); //64x64
-	texManager.add("boomer", "zombies.png"); //64x64
-	texManager.add("dog", "zombies.png"); //64x64
-	texManager.add("vomit", "zombies.png"); //64x64
 
 	Sprite grass;
 	grass.setTextureRect(IntRect(0, 0, 2000, 2000));
@@ -56,11 +53,6 @@ void Game::run(void)
 	t.setSize(20);
 	t.setColor(Color::Red);
 
-
-	//Animation a;
-	//a.init(view.getCenter(), Animator(40, { 0, 0 }, { 32, 32 }, texManager.get("coin"), { 8, 1 }));
-
-	//Mover m(0.8);
 	player.setMaxSpeed(0.8);
 	player.init({ 1000, 1000 }, Animator(100, { 0, 0 }, { 64, 64 }, texManager.get("player"), { 4, 1 }));
 	player.setCoolDown(500);
@@ -72,50 +64,35 @@ void Game::run(void)
 
 	life.setString("HP: " + player.getHp());
 
-	Character zombie;//, boomer, dog, vomit;
+	Character zombie, boomer, dog, vomit;
 
-	zombie.init({ 0, 0 }, Animator(130, { 3 * 64, 3 * 64 }, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
+	zombie.init({ 0, 0 }, Animator(130, { 0, 3 * 64 }, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
 	zombie.setDmg(5);
 	zombie.setMaxSpeed(0.057);
 	zombie.setFull(15);
-
-	//boomer.init({ 0, 0 }, Animator(130, { 3 * 64, 3 * 64 }, { 64, 64 }, texManager.get("boomer"), { 4,1 }));
-	//boomer.setDmg(10);
-	//boomer.setMaxSpeed(0.04);
-	//boomer.setFull(20);
-
-	//dog.init({ 0, 0 }, Animator(130, { 3 * 64, 3 * 64 }, { 64, 64 }, texManager.get("dog"), { 4,1 }));
-	//dog.setDmg(5);
-	//dog.setMaxSpeed(0.1);
-	//dog.setFull(8);
-
-	//vomit.init({ 0, 0 }, Animator(130, { 3 * 64, 3 * 64 }, { 64, 64 }, texManager.get("vomit"), { 4,1 }));
-	//vomit.setDmg(15);
-	//vomit.setMaxSpeed(0.07);
-	//vomit.setFull(10);
-
-	zombie.init({ (float)150, (float)150 }, Animator(350, {0, 0}, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
 	zombie.setCoolDown(600);
-	vector<Character> vz;
-	/*int h = 0;
-	for (int k = 0; k < 12; k++)
-	{
-		zombie.init({ (float)150 + h, (float)150 + h }, Animator(130, { 0,0 }, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
-		zombie.setMaxSpeed(0.04);
-		zombie.randomAnimation();
-		zombie.setFull();
-		h += 60;
-		vz.push_back(zombie);
-	}*/
 
-	/*for (int k = 0; k < 12; k++)
-	{
-		zombie.init({ (float)150, (float)150 }, Animator(130, { 0,0 }, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
-		zombie.randomAnimation();
-		vz.push_back(zombie);
-	}*/
+	boomer.init({ 0, 0 }, Animator(130, { 0, 0 * 64 }, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
+	boomer.setDmg(10);
+	boomer.setMaxSpeed(0.04);
+	boomer.setFull(20);
+	boomer.setCoolDown(1200);
+
+	dog.init({ 0, 0 }, Animator(130, { 0, 1 * 64 }, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
+	dog.setDmg(5);
+	dog.setMaxSpeed(0.1);
+	dog.setFull(8);
+	dog.setCoolDown(300);
+
+	vomit.init({ 0, 0 }, Animator(130, { 0, 2 * 64 }, { 64, 64 }, texManager.get("zombie"), { 4,1 }));
+	vomit.setDmg(15);
+	vomit.setMaxSpeed(0.07);
+	vomit.setFull(10);
+	vomit.setCoolDown(700);
+
+	vector<Character> vz;
 	Projectile p;
-	p.init({ 0,0 }, 0, 0, 0, texManager.get("bullet"));
+	p.init({ 0, 0 }, 0, 0, 0, texManager.get("bullet"));
 
 	vector<Projectile> vp;
 
@@ -129,7 +106,6 @@ void Game::run(void)
 
 	while (window.isOpen())
 	{
-		//cout << (int)(1.f / elapsed.asSeconds()) << endl;;
 		elapsed = clock.restart();
 
 		nextSpawn.add(elapsed.asMilliseconds());
@@ -139,7 +115,7 @@ void Game::run(void)
 			nextSpawn.loop();
 			if (vz.size() < lvl * lvl + 5)
 			{
-				//kind = rand() % 4;
+				kind = rand() % 4;
 				edge = rand() % 4;
 				switch (edge)
 				{
@@ -163,31 +139,31 @@ void Game::run(void)
 					break;
 				}
 
-				//switch (kind)
-				//{
-				//case 0: //boomer
-				//	boomer.setPos({ (float)x, (float)y });
-				//	boomer.randomAnimation();
-				//	vz.push_back(boomer);
-				//	break;
-				//case 1: //dog
-				//	dog.setPos({ (float)x, (float)y });
-				//	dog.randomAnimation();
-				//	vz.push_back(dog);
-				//	break;
-				//case 2: //vomit
-				//	vomit.setPos({ (float)x, (float)y });
-				//	vomit.randomAnimation();
-				//	vz.push_back(vomit);
-				//	break;
-				//case 3: //zombie
-				//	boomer.setPos({ (float)x, (float)y });
-				//	zombie.randomAnimation();
-				//	vz.push_back(zombie);
-				//	break;
-				//default:
-				//	break;
-				//}
+				switch (kind)
+				{
+				case 0: //boomer
+					boomer.setPos({ (float)x, (float)y });
+					boomer.randomAnimation();
+					vz.push_back(boomer);
+					break;
+				case 1: //dog
+					dog.setPos({ (float)x, (float)y });
+					dog.randomAnimation();
+					vz.push_back(dog);
+					break;
+				case 2: //vomit
+					vomit.setPos({ (float)x, (float)y });
+					vomit.randomAnimation();
+					vz.push_back(vomit);
+					break;
+				case 3: //zombie
+					boomer.setPos({ (float)x, (float)y });
+					zombie.randomAnimation();
+					vz.push_back(zombie);
+					break;
+				default:
+					break;
+				}
 				zombie.setPos({ (float)x, (float)y });
 				zombie.randomAnimation();
 				vz.push_back(zombie);
@@ -207,42 +183,6 @@ void Game::run(void)
 			}
 		}
 
-		//	for (int k = 0; k < va.size(); k++)
-		//	{
-		//		//va[k].setAngle(0);
-		//		va[k].update(elapsed);
-		//	}
-		//	for (Animation i : va)
-		//	{
-		//		i.draw(window);
-		//	}
-
-		//	for (int k = 0; k < vm.size(); k++)
-		//	{
-		//		//va[k].setAngle(0);
-		//		vm[k].update(elapsed);
-		//	}
-		//	for (Mover i : vm)
-		//	{
-		//		i.draw(window);
-		//	}
-
-
-		//	if (Mouse::isButtonPressed(Mouse::Left))
-		//	{
-		//		vm.erase(remove_if(vm.begin(), vm.end(), [](Mover& p) {return p.dio; }), vm.end());
-		//	}
-
-		//	//m.setAngle(0);
-		//		//m.look((Vector2f)Mouse::getPosition());
-		//		//m.look(10, elapsed);
-		//	//m.look((Vector2f)Mouse::getPosition(window) + view.getCenter() - view.getSize() / 2.f);
-		//	//va[0].setAngle(90);
-
-		////cout << va[0].getAngle() << endl;
-		//	cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
-		//	//m.update(elapsed);
-		//	//m.draw(window);
 		if (Keyboard::isKeyPressed(Keyboard::W))
 			player.addForce(0, -PLAYER_SPEED);
 		if (Keyboard::isKeyPressed(Keyboard::A))
@@ -251,7 +191,6 @@ void Game::run(void)
 			player.addForce(0, PLAYER_SPEED);
 		if (Keyboard::isKeyPressed(Keyboard::D))
 			player.addForce(PLAYER_SPEED, 0);
-		//cout << player.getPos().x << " " << player.getPos().y << endl;
 		if (Keyboard::isKeyPressed(Keyboard::LShift))
 			player.speedMod(player.getMaxSpeed() * 2.0);
 
@@ -287,7 +226,7 @@ void Game::run(void)
 			{
 				if (p.intersects(&z))
 				{
-					z.damage(5);
+					//z.damage(5);
 					p.destroy();
 					if (z.isDead())
 					{
@@ -304,14 +243,14 @@ void Game::run(void)
 		}
 
 		vz.erase(remove_if(vz.begin(), vz.end(), [&points, &lvlUp](Character& p) {
-			if (p.isDead()) 
-			{ 
+			if (p.isDead())
+			{
 				points++;
 				if (points % 5 == 0)
 				{
 					lvlUp = true;
 				}
-			} return p.isDead(); 
+			} return p.isDead();
 		}), vz.end());
 
 		if (lvlUp)
@@ -334,27 +273,22 @@ void Game::run(void)
 		{
 			if (z.intersects(&player) && z.useDmg())
 			{
-				player.damage(z.getDmg());
+				if (!GOD_MODE)
+					player.damage(z.getDmg());
 				t.init("OUCH", player.getPos());
 				vt.push_back(t);
 			}
 		}
 
-		life.setString("HP: " + to_string(player.getHp()) + "\nKILLS: " + to_string(points) + "\nLEVEL: " + to_string(lvl));
+		life.setString("HP: " + to_string(player.getHp()) + "\nKILLS: " + to_string(points) + "\nLEVEL: " + to_string(lvl) + "\nTOTAL ZOMBIES: " + to_string(vz.size()) +
+			"\nFPS: " + to_string((int)(1.f / elapsed.asSeconds())));
 
-		//for (Character& z : vz)
-		//{
-		//	//zombies[k].steerSeek(m1.getPosition());
-		//	z.look(player.getPos());
-		//	z.moveFwd();
-		//	z.update(elapsed);
-		//}
 
-		if (Mouse::isButtonPressed(Mouse::Left))// && spia)
+		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (player.useDmg())
 			{
-				p.init(player.getPos(), player.getAngle() - 90, 1.2, 1000);
+				p.init(player.getPos(), player.getAngle() - 90, 1.2, 2000);
 				vp.push_back(p);
 			}
 		}
@@ -378,9 +312,7 @@ void Game::run(void)
 		window.draw(grass);
 
 		for (Projectile& p : vp)
-		{
 			p.draw(window);
-		}
 
 		player.draw(window);
 
@@ -410,7 +342,6 @@ void Game::run(void)
 			window.draw(life);
 		}
 
-		//cout << endl;
 		window.display();
 		window.clear();
 	}

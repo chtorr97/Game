@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#define GOD_MODE 1
+
 #include <SFML\Graphics.hpp>
 #include <vector>
 
