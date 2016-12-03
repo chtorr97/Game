@@ -18,6 +18,37 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Counter.cpp" />
+    <ClCompile Include="Displayable.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FloatingText.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mover.cpp" />
+    <ClCompile Include="Pointer.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Counter.h" />
+    <ClInclude Include="Displayable.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="FloatingText.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Mover.h" />
+    <ClInclude Include="Pointer.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="utility.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3eeb8f10-45e4-4014-8ea6-ca9c061ecbd4}</ProjectGuid>
     <RootNamespace>Game</RootNamespace>
@@ -117,9 +148,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
